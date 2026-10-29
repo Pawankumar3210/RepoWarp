@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#060a13" />
+    <meta
+      name="description"
+      content="RepoWarp turns public GitHub repositories into interactive 3D commit histories and historical codebase landscapes."
+    />
+    <meta property="og:title" content="RepoWarp — Travel Through the Evolution of Code" />
+    <meta
+      property="og:description"
+      content="Explore GitHub repositories through interactive 3D commit histories and historical codebase landscapes."
+    />
+    <link rel="icon" type="image/png" href="/repowarp-logo.png" />
+    <title>RepoWarp</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("repowarp.preferences.v1");
+          var theme = stored ? JSON.parse(stored).theme : "dark";
+          if (theme !== "light") theme = "dark";
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = "dark";
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-CcijhNWJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DDViy-tX.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
