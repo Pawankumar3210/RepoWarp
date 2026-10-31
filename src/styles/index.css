@@ -151,6 +151,18 @@ button {
     backdrop-filter: blur(18px) saturate(1.1);
   }
 
+  .glass-inspector {
+    background:
+      linear-gradient(180deg, rgb(var(--c-elevated) / 0.58), rgb(var(--c-panel) / 0.28)),
+      rgb(var(--c-panel) / 0.22);
+    border: 1px solid rgb(var(--c-ink) / 0.08);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      inset 0 0 0 1px rgb(var(--c-line) / 0.35),
+      0 24px 60px rgb(0 0 0 / 0.22);
+    backdrop-filter: blur(28px) saturate(1.4);
+  }
+
   .hairline {
     border: 1px solid rgb(var(--c-line) / 0.8);
   }
@@ -445,8 +457,12 @@ button {
     gap: 0.2rem;
     padding: 0.22rem;
     border-radius: 0.85rem;
-    border: 1px solid rgb(var(--c-line) / 0.85);
-    background: rgb(var(--c-base) / 0.38);
+    border: 1px solid rgb(var(--c-ink) / 0.08);
+    background: rgb(var(--c-panel) / 0.32);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.07),
+      0 10px 28px rgb(0 0 0 / 0.12);
+    backdrop-filter: blur(22px) saturate(1.35);
   }
 
   .segmented > button {
@@ -473,10 +489,12 @@ button {
 
   .segmented > button[data-active="true"] {
     color: rgb(var(--c-ink));
-    background: rgb(var(--c-elevated));
+    background: rgb(var(--c-elevated) / 0.7);
     box-shadow:
-      inset 0 0 0 1px rgb(var(--c-line)),
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      inset 0 0 0 1px rgb(var(--c-line) / 0.55),
       0 4px 14px rgb(0 0 0 / 0.16);
+    backdrop-filter: blur(16px) saturate(1.2);
   }
 
   .kbd {
@@ -707,49 +725,54 @@ button {
   }
 
   .range::-webkit-slider-runnable-track {
-    height: 3px;
+    height: 4px;
     border-radius: 999px;
     background: linear-gradient(
       90deg,
       rgb(var(--c-aqua)) 0%,
-      rgb(var(--c-aqua)) var(--range-progress, 0%),
-      rgb(var(--c-line)) var(--range-progress, 0%),
-      rgb(var(--c-line)) 100%
+      rgb(var(--c-violet)) var(--range-progress, 0%),
+      rgb(var(--c-line) / 0.7) var(--range-progress, 0%),
+      rgb(var(--c-line) / 0.7) 100%
     );
+    box-shadow: 0 0 14px rgb(var(--c-aqua) / 0.22);
   }
 
   .range::-moz-range-track {
-    height: 3px;
+    height: 4px;
     border-radius: 999px;
-    background: rgb(var(--c-line));
+    background: rgb(var(--c-line) / 0.7);
   }
 
   .range::-moz-range-progress {
-    height: 3px;
+    height: 4px;
     border-radius: 999px;
-    background: rgb(var(--c-aqua));
+    background: linear-gradient(90deg, rgb(var(--c-aqua)), rgb(var(--c-violet)));
   }
 
   .range::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 14px;
-    height: 14px;
-    margin-top: -5.5px;
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
     border-radius: 999px;
-    border: 2px solid rgb(var(--c-base));
-    background: rgb(var(--c-aqua));
-    box-shadow: 0 0 0 4px rgb(var(--c-aqua) / 0.16);
+    border: 2px solid rgb(255 255 255 / 0.92);
+    background: rgb(var(--c-amber));
+    box-shadow:
+      0 0 0 4px rgb(var(--c-amber) / 0.22),
+      0 0 18px rgb(var(--c-amber) / 0.55);
     transition: transform 150ms ease;
   }
 
   .range::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 999px;
-    border: 2px solid rgb(var(--c-base));
-    background: rgb(var(--c-aqua));
-    box-shadow: 0 0 0 4px rgb(var(--c-aqua) / 0.16);
+    border: 2px solid rgb(255 255 255 / 0.92);
+    background: rgb(var(--c-amber));
+    box-shadow:
+      0 0 0 4px rgb(var(--c-amber) / 0.22),
+      0 0 18px rgb(var(--c-amber) / 0.55);
   }
 
   .range:active::-webkit-slider-thumb {

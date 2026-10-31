@@ -1048,7 +1048,7 @@ export function RepositoryPage() {
           </div>
 
           <aside className="min-w-0 xl:sticky xl:top-3 xl:self-start">
-            <div className="glass panel-enter h-[min(72svh,46rem)] overflow-hidden rounded-2xl xl:h-[calc(100svh-22rem)] xl:min-h-[28rem]">
+            <div className="glass glass-inspector panel-enter h-[min(72svh,46rem)] overflow-hidden rounded-2xl xl:h-[calc(100svh-22rem)] xl:min-h-[28rem]">
               {view === "history" ? (
                 <CommitInspector
                   commit={selectedCommit}

@@ -5,8 +5,9 @@ import type {
 } from "../../types/domain";
 
 export const GRAPH_X_GAP = 2.75;
-export const GRAPH_LANE_GAP = 2.4;
+export const GRAPH_LANE_GAP = 3.15;
 export const GRAPH_LANE_DEPTH = 0.55;
+export const GRAPH_NODE_Y = 0.52;
 
 export interface GraphNode {
   id: string;
@@ -138,8 +139,13 @@ export function layoutGraph(commits: CommitRecord[]): GraphLayout {
       sha: commit.sha,
       kind: "commit",
       x: -index * GRAPH_X_GAP,
-      y: lane * GRAPH_LANE_GAP - laneOffset,
-      z: lane * GRAPH_LANE_DEPTH - depthOffset,
+      y: GRAPH_NODE_Y + Math.sin(index * 0.37 + lane) * 0.07,
+      z:
+        lane * GRAPH_LANE_GAP -
+        laneOffset +
+        Math.sin(index * 0.42) * 2.05 +
+        lane * GRAPH_LANE_DEPTH * 0.15 -
+        depthOffset * 0.2,
       lane,
       commitIndex: index,
       isMerge: commit.parents.length > 1,

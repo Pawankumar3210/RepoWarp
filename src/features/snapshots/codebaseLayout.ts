@@ -1,9 +1,9 @@
 import type { FileChangeStatus, SnapshotEntry } from "../../types/domain";
 
-export const FILE_CELL = 0.64;
-export const FILE_WIDTH = 0.26;
-export const CLUSTER_GAP_X = 9;
-export const CLUSTER_GAP_Z = 9.5;
+export const FILE_CELL = 0.7;
+export const FILE_WIDTH = 0.32;
+export const CLUSTER_GAP_X = 10.5;
+export const CLUSTER_GAP_Z = 11;
 
 export type FileCategory =
   | "code"
@@ -36,6 +36,7 @@ export interface CodebaseCluster {
   name: string;
   parentPath: string;
   x: number;
+  y: number;
   z: number;
   width: number;
   depth: number;
@@ -181,9 +182,23 @@ export function categorizeFile(path: string, extension: string | null): FileCate
 }
 
 export function fileHeightForSize(size: number | null): number {
-  if (size === null || size <= 0) return 0.36;
-  const height = 0.32 + Math.log2(size + 1) * 0.16;
-  return Math.min(2.8, Math.max(0.36, height));
+  if (size === null || size <= 0) return 0.48;
+  const height = 0.46 + Math.log2(size + 1) * 0.24;
+  return Math.min(4.4, Math.max(0.48, height));
+}
+
+function hashString(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function islandElevation(path: string, level: number): number {
+  const jitter = (hashString(path) % 9) * 0.14;
+  return jitter + level * 0.28;
 }
 
 function pathDepth(path: string): number {
@@ -281,12 +296,13 @@ export function layoutCodebase(
     const fileColumns = Math.min(8, Math.max(1, Math.ceil(Math.sqrt(Math.max(1, count)))));
     const fileRows = Math.max(1, Math.ceil(Math.max(1, count) / fileColumns));
     const platformWidth = Math.max(
-      2.5,
-      fileColumns * FILE_CELL + 1.5,
-      Math.min(7.2, 2.5 + Math.sqrt(Math.max(1, count)) * 0.7),
+      2.8,
+      fileColumns * FILE_CELL + 1.85,
+      Math.min(8.2, 2.8 + Math.sqrt(Math.max(1, count)) * 0.82),
     );
-    const platformDepth = Math.max(2.5, fileRows * FILE_CELL + 1.5);
+    const platformDepth = Math.max(2.8, fileRows * FILE_CELL + 1.85);
     const position = clusterPositions.get(dir) ?? { x: 0, z: 0 };
+    const elevation = islandElevation(dir, pathDepth(dir));
     const fileNodes: CodebaseFileNode[] = [];
 
     directFiles.forEach((file, index) => {
@@ -302,7 +318,7 @@ export function layoutCodebase(
         name: file.name,
         clusterPath: dir,
         x,
-        y: height / 2 + 0.1,
+        y: elevation + 0.22 + height / 2,
         z,
         height,
         width: FILE_WIDTH,
@@ -320,6 +336,7 @@ export function layoutCodebase(
       name: baseName(dir),
       parentPath: parentOf(dir),
       x: position.x,
+      y: elevation,
       z: position.z,
       width: platformWidth,
       depth: platformDepth,

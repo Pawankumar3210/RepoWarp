@@ -69,9 +69,9 @@ describe("categorizeFile", () => {
 
 describe("fileHeightForSize", () => {
   it("keeps heights within the scene bounds", () => {
-    expect(fileHeightForSize(null)).toBe(0.36);
-    expect(fileHeightForSize(0)).toBe(0.36);
-    expect(fileHeightForSize(1_000_000)).toBeLessThanOrEqual(2.8);
+    expect(fileHeightForSize(null)).toBe(0.48);
+    expect(fileHeightForSize(0)).toBe(0.48);
+    expect(fileHeightForSize(1_000_000)).toBeLessThanOrEqual(4.4);
     expect(fileHeightForSize(4200)).toBeGreaterThan(fileHeightForSize(900));
   });
 });
@@ -122,12 +122,10 @@ describe("layoutCodebase", () => {
     const layout = layoutCodebase([]);
     expect(layout.totalFiles).toBe(0);
     expect(layout.files).toEqual([]);
-    expect(layout.bounds).toEqual({
-      minX: -1.6,
-      maxX: 1.6,
-      minZ: -1.25,
-      maxZ: 1.25,
-      maxHeight: 1,
-    });
+    expect(layout.bounds.minX).toBeCloseTo(-1.81, 2);
+    expect(layout.bounds.maxX).toBeCloseTo(1.81, 2);
+    expect(layout.bounds.minZ).toBeCloseTo(-1.4, 2);
+    expect(layout.bounds.maxZ).toBeCloseTo(1.4, 2);
+    expect(layout.bounds.maxHeight).toBe(1);
   });
 });
